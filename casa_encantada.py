@@ -72,13 +72,22 @@ enigmas = {
     
     "¿Cuántos 9 hay entre el 1 y el 100?": "Veinte 20"
 }
-
+door = "🚪";
+ghost = "👻"
+candy = "🍭"
+player = "👤"
 mansion = [
     ["⬜️","⬜️","⬜️","⬜️"],
     ["⬜️","⬜️","⬜️","⬜️"],
     ["⬜️","⬜️","⬜️","⬜️"],
     ["⬜️","⬜️","⬜️","⬜️"],
 ]
+
+
+MOVE_NORTH = 1
+MOVE_SOUTH = 2
+MOVE_EAST = 3
+MOVE_WEST = 4
 def set_door_pos(mansion):
     door = "🚪";
     door_pos_x = random.randint(0, 3)
@@ -127,6 +136,48 @@ def set_player_pos(mansion):
         
     return mansion, player_pos_y, player_pos_x
 
+def has_ghost(pos_y, pos_x):
+    if mansion[pos_y][pos_x] == mansion[ghost_pos_y][ghost_pos_x]:
+        return True
+    else:
+        return False
+
+def has_candy(pos_y, pos_x):
+    if mansion[pos_y][pos_x] == mansion[candy_pos_y][candy_pos_x]:
+        return True
+    else:
+        return False
+
+
+def show_possible_moves(player_pos_y, player_pos_x):
+
+    max_y, max_x = 3, 3
+
+    movimientos = []
+
+
+    if player_pos_y > 0:
+        movimientos.append("Norte(1)")
+
+
+    if player_pos_y < max_y:
+        movimientos.append("Sur(2)")
+
+
+    if player_pos_x < max_x:
+        movimientos.append("Este(3)")
+
+
+    if player_pos_x > 0:
+        movimientos.append("Oeste(4)")
+
+    print(", ".join(movimientos))
+
+
+
+
+
+
 #Inicializamos la mansion seteando las posiciones del fantasma, la puerta y la habitacion de dulces
 mansion = set_door_pos(mansion)
 mansion, door_pos_y, door_pos_x = mansion
@@ -146,10 +197,31 @@ print(f"[{player_pos_y}][{player_pos_x}]")
 
 
 for i in mansion:
-    print(i)
+    print("".join(i))
     
     
-#Guardamos las posiciones 
+# Cambiamos los objetos por cuadros blancos para camuflarlos y que el usuario no los vea
+mansion[ghost_pos_y][ghost_pos_x] = "⬜"
+mansion[candy_pos_y][candy_pos_x] = "⬜"
+mansion[door_pos_y][door_pos_x] = "⬜"
+
+
+#Mostramos al usuario el primer enigma para que pueda cambiar de habitación
+print("/*/*/*/*/*/*/ La respuesta a la pregunta debe de ser con UNA sola PALABRA \*\*\*\*\*\*")
+acertijo = random.choice(list(enigmas.keys()))
+respuesta = input( f"{acertijo} -> ")
+
+
+
+if respuesta.lower() in enigmas.get(acertijo).lower():
+    print("¡¡Has acertado!!") #Ejecutar logica de si acierta la pregunta
+    posible_moves = show_possible_moves(player_pos_y, player_pos_x)
+    movimiento = input(f"Tus posibles movimientos son: {posible_moves} -> ")
+    
+else:
+    print("¡¡Has fallado!!")
+
+
 
 
 

@@ -86,7 +86,7 @@ def set_door_pos(mansion):
     
     mansion[door_pos_y][door_pos_x] = door
     
-    return mansion
+    return mansion, door_pos_y, door_pos_x
 
 def set_ghost_pos(mansion):
     ghost = "👻"
@@ -99,7 +99,7 @@ def set_ghost_pos(mansion):
             mansion[ghost_pos_y][ghost_pos_x] = ghost
             break
         
-    return mansion  
+    return mansion, ghost_pos_y, ghost_pos_x
 
 def set_candy_pos(mansion):
     candy = "🍭"
@@ -112,7 +112,7 @@ def set_candy_pos(mansion):
             mansion[candy_pos_y][candy_pos_x] = candy
             break
         
-    return mansion 
+    return mansion, candy_pos_y, candy_pos_x
 
 def set_player_pos(mansion):
     player = "👤"
@@ -125,16 +125,31 @@ def set_player_pos(mansion):
             mansion[player_pos_y][player_pos_x] = player
             break
         
-    return mansion 
+    return mansion, player_pos_y, player_pos_x
 
 #Inicializamos la mansion seteando las posiciones del fantasma, la puerta y la habitacion de dulces
 mansion = set_door_pos(mansion)
+mansion, door_pos_y, door_pos_x = mansion
+print(f"[{door_pos_y}][{door_pos_x}]")
+
 mansion = set_ghost_pos(mansion)
+mansion, ghost_pos_y, ghost_pos_x = mansion
+print(f"[{ghost_pos_y}][{ghost_pos_x}]")
+
 mansion = set_candy_pos(mansion)
+mansion, candy_pos_y, candy_pos_x = mansion
+print(f"[{candy_pos_y}][{candy_pos_x}]")
+
 mansion = set_player_pos(mansion)
+mansion, player_pos_y, player_pos_x = mansion
+print(f"[{player_pos_y}][{player_pos_x}]")
+
 
 for i in mansion:
     print(i)
+    
+    
+#Guardamos las posiciones 
 
-#print(mansion)
+
 
